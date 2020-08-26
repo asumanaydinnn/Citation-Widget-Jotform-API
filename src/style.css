@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+
+.header {
+  width: 500px;
+  border-bottom: 1px solid #aaa;
+}
 .react-tabs {
   -webkit-tap-highlight-color: transparent;
 }
@@ -53,4 +59,119 @@
 
 .react-tabs__tab-panel--selected {
   display: block;
+}
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin-top: 5px;
+  margin-left: 10px;
+  width: auto;
+  border-width: 1px;
+  border-color: #aaa;
+  margin-bottom: 10px;
+}
+.submit2 {
+  width: auto;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.text {
+  font-family: "Bigshot One";
+  font-size: 22px;
+  font-weight: 100;
+}
+.button {
+  width: auto;
+  height: auto;
+  background-color: white;
+  transition-duration: 0.4s;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: gray; /* Green */
+  color: white;
+}
+
+.panel {
+  width: 400px;
+  height: 400px;
+  scroll-behavior: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  justify-items: flex-start;
+  border-width: 1px;
+  border: 2px solid #aaa;
+  border-radius: 2px;
+}
+.form {
+  margin-bottom: 10px;
+}
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.body {
+  width: 500px;
+  height: auto;
+  border-width: 1px;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+}
+.form-part {
+  width: 400px;
+  height: 400px;
+  scroll-behavior: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-width: 1px;
+  border: 2px solid #aaa;
+  border-radius: 2px;
+  margin-top: 15px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/* Style inputs */
+input[type="text"] {
+  width: 350px;
+  height: 20px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Style the submit button */
+.submit {
+  width: 100px;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+/* Add a background color to the submit button on mouse-over */
+.submit:hover {
+  background-color: #45a049;
 }
