@@ -5,6 +5,7 @@
     <link rel="icon" href="%PUBLIC_URL%/citation.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -26,6 +27,17 @@
     -->
     <title>Citation Widget</title>
   </head>
+  <script type="text/javascript">
+    (function () {
+      var po = document.createElement("script");
+      po.type = "text/javascript";
+      po.async = true;
+      po.src =
+        "//js.jotform.com/JotFormCustomWidget.min.js?onload=onLoadCallback";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(po, s);
+    })();
+  </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
