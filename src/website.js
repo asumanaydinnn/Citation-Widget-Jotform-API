@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, Text } from "react";
 import ReactDOM from "react-dom";
 import "./style.css";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -8,7 +8,22 @@ import ReactList from "react-list";
 class Website extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      author1: "",
+      author2: "",
+    };
+  }
+  handleChange(event) {
+    this.setState({
+      author1: event.target.value,
+    });
+  }
+  showComponent() {
+    return (
+      <div>
+        <Text>This is the author {this.state.author1}</Text>
+      </div>
+    );
   }
 
   render() {
@@ -21,6 +36,7 @@ class Website extends React.Component {
             id="fname"
             name="firstname"
             placeholder="Author 1"
+            onKeyUp={this.handleChange.bind(this)}
           ></input>
 
           <label for="lname">Author 2</label>
@@ -79,7 +95,12 @@ class Website extends React.Component {
             <option value="usa">USA</option>
           </select> */}
 
-          <input className="submit" type="submit" value="Generate"></input>
+          <input
+            className="submit"
+            type="submit"
+            value="Generate"
+            onClick={() => this.showComponent()}
+          ></input>
         </form>
       </div>
     );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Text } from "react";
 import ReactDOM from "react-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "./style.css";
@@ -25,36 +25,60 @@ class Citation extends React.Component {
         "APSA",
       ],
       tabs: false,
+      author1: "",
     };
   }
-  showComponent(item) {
-    if (item.indexOf("APA")) {
-      console.log(item);
-      this.setState({ tabs: !this.state.tabs });
-    }
+  handleChange(event) {
+    this.setState({
+      author1: event.target.value,
+    });
+  }
+  showComponent() {
+    return (
+      <div>
+        <Text>This is the author {this.state.author1}</Text>
+      </div>
+    );
+  }
+  SubmitFunction() {
+    window.JFCustomWidget.subscribe("submit", function () {
+      if (this.state.author1 != null) {
+        window.JFCustomWidget.sendSubmit(this.state.author1);
+      } else {
+        window.JFCustomWidget.sendData("Empty citation");
+      }
+    });
   }
   render() {
     const { tabs } = this.state;
-
+    window.JFCustomWidget.subscribe("ready", function () {
+      console.log("The widget is ready");
+    });
     return (
       <div className="body">
         <h1 className="header">
           <img className="logo" src={"./citation.png"} alt="Logo" />
           Citation Widget{" "}
         </h1>
-        <label for="country">Type of Citation</label>
-        <select className="select-source" id="country" name="country">
-          {this.state.Tabs.map((item) => (
-            <option
-              value=" "
-              key={item}
-              onClick={() => this.showComponent(item)}
-            >
-              {item}
-            </option>
-          ))}
-        </select>
-        <div>{this.state.tabs && <Apa />}</div>
+        <div className="form-part">
+          <form>
+            <label for="fname">Author 1</label>
+            <input
+              type="text"
+              id="fname"
+              name="firstname"
+              placeholder="Author 1"
+              onKeyUp={this.handleChange.bind(this)}
+            ></input>
+          </form>
+        </div>
+        <h1>this is the author: {this.state.author1}</h1>
+        <input
+          className="submit"
+          type="submit"
+          value="Generate"
+          onClick={() => this.SubmitFunction()}
+        ></input>
       </div>
     );
   }
