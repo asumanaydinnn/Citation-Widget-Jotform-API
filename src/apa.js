@@ -5,6 +5,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ReactList from "react-list";
 import Website from "./website";
+import Book from "./book";
 
 class Apa extends React.Component {
   constructor(props) {
@@ -51,30 +52,32 @@ class Apa extends React.Component {
       DVD: false,
     };
   }
-  showComponent(item) {
-    if (item.indexOf(this.state.resource[1])) {
-      console.log(item);
-      this.setState({ website: !this.state.website });
+  setStatesAll = (item) => {
+    if (item == "Website") {
+      this.setState({ website: true });
+    } else if (item == "Book") {
+      this.setState({ book: true });
     }
-  }
+  };
 
   render() {
     const { website } = this.state;
     return (
       <div>
-        <label for="country">Source</label>
-        <select className="select-source" id="country" name="country">
+        <label for="Source">Source</label>
+        <select className="select-source" id="source" name="source">
           {this.state.resource.map((item) => (
             <option
               value=" "
               key={item}
-              onClick={() => this.showComponent(item)}
+              onClick={() => this.setStatesAll(item)}
             >
               {item}
             </option>
           ))}
         </select>
         <div>{this.state.website && <Website />}</div>
+        <div>{this.state.book && <Book />}</div>
       </div>
     );
   }

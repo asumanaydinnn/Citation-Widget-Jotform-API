@@ -25,60 +25,64 @@ class Citation extends React.Component {
         "APSA",
       ],
       tabs: false,
-      author1: "",
+      apa: false,
+      mla: false,
+      itemSelected: "",
     };
   }
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       author1: event.target.value,
     });
-  }
-  showComponent() {
-    return (
-      <div>
-        <Text>This is the author {this.state.author1}</Text>
-      </div>
-    );
-  }
-  SubmitFunction() {
-    window.JFCustomWidget.subscribe("submit", function () {
-      if (this.state.author1 != null) {
-        window.JFCustomWidget.sendSubmit(this.state.author1);
-      } else {
-        window.JFCustomWidget.sendData("Empty citation");
-      }
+  };
+  setStatesAll = (item) => {
+    if (item == "APA") {
+      this.setState({ apa: true });
+    }
+  };
+
+  SubmitFunction = () => {
+    return window.JFCustomWidget.subscribe("submit", function () {
+      var result = {};
+      //this part will be used if your field is required. If your widget is required valid
+      //property will be expected before form can be submitted
+      result.valid = true;
+      //this is your field result. You are expected to send value property as string
+      result.value = "my precious data";
+      window.JFCustomWidget.sendData(result);
+      //most probably you will call sendSubmit method
+      window.JFCustomWidget.sendSubmit(result);
     });
-  }
+  };
   render() {
     const { tabs } = this.state;
-    window.JFCustomWidget.subscribe("ready", function () {
-      console.log("The widget is ready");
-    });
     return (
       <div className="body">
         <h1 className="header">
           <img className="logo" src={"./citation.png"} alt="Logo" />
           Citation Widget{" "}
         </h1>
-        <div className="form-part">
-          <form>
-            <label for="fname">Author 1</label>
-            <input
-              type="text"
-              id="fname"
-              name="firstname"
-              placeholder="Author 1"
-              onKeyUp={this.handleChange.bind(this)}
-            ></input>
-          </form>
+        <label for="Source">Source</label>
+        <div>
+          <select
+            ref="fieldInput"
+            className="select-source"
+            id="source"
+            name="source"
+          >
+            {this.state.Tabs.map((item) => (
+              <option
+                value={item}
+                key={item}
+                onClick={() => this.setStatesAll(item)}
+              >
+                {item}
+              </option>
+            ))}
+          </select>
+          <div>{this.state.apa && <Apa />}</div>
+          <div>{this.state.mla && <Mla />}</div>
         </div>
-        <h1>this is the author: {this.state.author1}</h1>
-        <input
-          className="submit"
-          type="submit"
-          value="Generate"
-          onClick={() => this.SubmitFunction()}
-        ></input>
       </div>
     );
   }

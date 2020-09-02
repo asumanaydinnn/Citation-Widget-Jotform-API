@@ -5,7 +5,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ReactList from "react-list";
 
-class Website extends React.Component {
+class Book extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,6 +88,12 @@ class Website extends React.Component {
             name="lastname"
             placeholder="Page Range for Citation "
           ></input>
+          {/* <label for="country">Country</label>
+          <select id="country" name="country">
+            <option value="australia">Australia</option>
+            <option value="canada">Canada</option>
+            <option value="usa">USA</option>
+          </select> */}
 
           <input
             className="submit"
@@ -101,4 +107,4 @@ class Website extends React.Component {
   }
 }
 
-export default Website;
+export default Book;
