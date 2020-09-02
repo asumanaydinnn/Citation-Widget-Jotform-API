@@ -1,9 +1,12 @@
-import React, { useState, Component } from "react";
+import React, { useState, Text, Component } from "react";
 import ReactDOM from "react-dom";
 import "./style.css";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ReactList from "react-list";
+import Book from "./book";
+import Website from "./website";
+import Film from "./film";
 
 class Mla extends React.Component {
   constructor(props) {
@@ -14,7 +17,7 @@ class Mla extends React.Component {
         "Website",
         "Book",
         "Journal",
-        "DVD, Video, Or Film",
+        "Film",
         "Archive Material",
         "Artwork",
         "Blog",
@@ -44,36 +47,41 @@ class Mla extends React.Component {
         "Software",
         "Website",
       ],
+      website: false,
+      book: false,
+      journal: false,
+      film: false,
     };
   }
 
-  onInputChange(e) {
-    this.setState({
-      inputValue: e.target.value,
-    });
-  }
-  listItems() {
-    let resource = this.state.resource;
-    return (
-      <ul>
-        {resource.map((val, index) => {
-          return <li key={index}>{val}</li>;
-        })}
-      </ul>
-    );
-  }
-
+  setStatesAll = (item) => {
+    if (item == "Website") {
+      this.setState({ website: true });
+    } else if (item == "Book") {
+      this.setState({ book: true });
+    } else if (item == "Film") {
+      this.setState({ film: true });
+    }
+  };
   render() {
+    const { website } = this.state;
     return (
-      <div className="panel">
-        <ButtonGroup>
-          {" "}
+      <div>
+        <label for="Source">Source</label>
+        <select className="select-source" id="source" name="source">
           {this.state.resource.map((item) => (
-            <button className="button" key={item}>
+            <option
+              value={item}
+              key={item}
+              onClick={() => this.setStatesAll(item)}
+            >
               {item}
-            </button>
+            </option>
           ))}
-        </ButtonGroup>
+        </select>
+        <div>{this.state.website && <Website />}</div>
+        <div>{this.state.book && <Book />}</div>
+        <div>{this.state.film && <Film />}</div>
       </div>
     );
   }

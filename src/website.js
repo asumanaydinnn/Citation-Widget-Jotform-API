@@ -9,93 +9,90 @@ class Website extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      author1: "",
+      firstname: "",
       author2: "",
+      bookName: "",
+      year: "",
+      edition: "",
+      city: "",
+      publisher: "",
+      page: "",
+      citation: "",
     };
+    this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event) {
     this.setState({
-      author1: event.target.value,
+      [event.target.name]: event.target.value,
     });
   }
-  showComponent() {
-    return (
-      <div>
-        <Text>This is the author {this.state.author1}</Text>
-      </div>
-    );
-  }
-
   render() {
     return (
-      <div className="form-part">
-        <form>
-          <label for="fname">Author 1</label>
-          <input
-            type="text"
-            id="fname"
-            name="firstname"
-            placeholder="Author 1"
-            onKeyUp={this.handleChange.bind(this)}
-          ></input>
-
-          <label for="lname">Author 2</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Author 2"
-          ></input>
-          <label for="lname">Book</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Book"
-          ></input>
-          <label for="lname">Year Published</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Year"
-          ></input>
-          <label for="lname">Edition</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Edition"
-          ></input>
-          <label for="lname">City published</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="City published"
-          ></input>
-          <label for="lname">Publisher</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Publisher Name "
-          ></input>
-          <label for="lname">Page Range</label>
-          <input
-            type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Page Range for Citation "
-          ></input>
-
-          <input
-            className="submit"
-            type="submit"
-            value="Generate"
-            onClick={() => this.showComponent()}
-          ></input>
-        </form>
+      <div>
+        <div className="form-part">
+          <form>
+            <label for="fname">Author 1</label>
+            <input
+              type="text"
+              id="fname"
+              name="firstname"
+              placeholder="Author 1"
+              // value={this.state.firstname}
+              onChange={(this.handleChange, this.changeInput)}
+            ></input>
+            <label for="lname">Author 2</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Author 2"
+            ></input>
+            <label for="lname">Book</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Book"
+            ></input>
+            <label for="lname">Year Published</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Year"
+            ></input>
+            <label for="lname">Edition</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Edition"
+            ></input>
+            <label for="lname">City published</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="City published"
+            ></input>
+            <label for="lname">Publisher</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Publisher Name "
+            ></input>
+            <label for="lname">Page Range</label>
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Page Range for Citation "
+            ></input>
+            <h1>{this.state.firstname}</h1>
+          </form>
+        </div>
       </div>
     );
   }

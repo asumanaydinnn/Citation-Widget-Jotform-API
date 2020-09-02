@@ -5,7 +5,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ReactList from "react-list";
 
-class Book extends React.Component {
+class Film extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,4 +98,4 @@ class Book extends React.Component {
   }
 }
 
-export default Book;
+export default Film;
