@@ -7,6 +7,7 @@ import ReactList from "react-list";
 import Book from "../sourceApa/book";
 import OnlineImage from "../sourceApa/OnlineImage";
 import Film from "../sourceApa/film";
+import { Divider } from "antd";
 
 class Apa extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Apa extends React.Component {
     this.state = {
       search: "",
       resource: [
+        " ",
         "Book",
         "Journal",
         "Film",
@@ -49,10 +51,15 @@ class Apa extends React.Component {
       book: false,
       journal: false,
       film: false,
+      selected: " ",
     };
   }
 
-  setStatesAll = (item) => {
+  setStatesAll = ({ target: { value: item } }) => {
+    this.setState({
+      selected: item,
+    });
+    console.log(item);
     if (item == "Website") {
       this.setState({ website: true });
     } else if (item == "Book") {
@@ -65,18 +72,21 @@ class Apa extends React.Component {
     const { website } = this.state;
     return (
       <div>
-        <label for="Source">Source</label>
-        <select className="select-source" id="source" name="source">
+        <p>Please Select the source type</p>
+        <select
+          className="select-source"
+          id="source"
+          name="source"
+          value={this.state.selected}
+          onChange={this.setStatesAll}
+        >
           {this.state.resource.map((item) => (
-            <option
-              value={item}
-              key={item}
-              onClick={() => this.setStatesAll(item)}
-            >
+            <option value={item} key={item}>
               {item}
             </option>
           ))}
         </select>
+        <Divider />
         <div>{this.state.onlineImage && <OnlineImage />}</div>
         <div>{this.state.book && <Book />}</div>
         <div>{this.state.film && <Film />}</div>

@@ -1,23 +1,23 @@
 import React, { useState, Component, Text } from "react";
 import ReactDOM from "react-dom";
 import "../style.css";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
-import ReactList from "react-list";
+import { Form, Input, Button, Radio } from "antd";
+import "antd/dist/antd.css";
+import { Divider } from "antd";
 
 class Book extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       firstname: "",
-      author2: "",
-      bookName: "",
+      lastname: "",
+      title: "",
       year: "",
       edition: "",
       city: "",
       publisher: "",
-      page: "",
       citation: "",
+      visible: false,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -25,86 +25,110 @@ class Book extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    window.JFCustomWidget.subscribe("ready", function () {
-      //subscribe to form submit event
-      window.JFCustomWidget.subscribe("submit", function () {
-        var msg = {
-          //you should valid attribute to data for JotForm
-          //to be able to use youw widget as required
-          valid: true,
-          value: "gönderildi",
-        };
-        // send value to JotForm
-        window.JFCustomWidget.sendSubmit(msg);
-      });
-    });
   }
+  generateCitation = () => {
+    const author1 = this.state.firstname;
+    const author2 = this.state.lastname;
+    const titleOfBook = this.state.title;
+    const yearOf = this.state.year;
+    const editionOf = this.state.edition;
+    const cityOf = this.state.cityOf;
+    const publisherOf = this.state.publisher;
+    const citation =
+      author2 +
+      "," +
+      author1.charAt(0) +
+      ".(" +
+      yearOf +
+      ")." +
+      titleOfBook +
+      " (" +
+      editionOf +
+      "st edition.). " +
+      publisherOf +
+      ".";
+    console.log(citation);
+    this.setState({
+      citation: citation,
+    });
+    const msg = {
+      valid: true,
+      value: citation,
+    };
+    this.setState({
+      visible: true,
+    });
+    window.JFCustomWidget.sendData(msg);
+  };
 
   render() {
+    //subscribe to form submit event
     return (
       <div>
-        <div className="form-part">
+        <div>
           <form>
-            <label for="fname">Author 1</label>
-            <input
+            <div>
+              <p>Please fill the informations for the citation</p>
+            </div>
+            <Input
               type="text"
               id="fname"
               name="firstname"
               placeholder="Author 1"
               // value={this.state.firstname}
               onChange={this.handleChange}
-            ></input>
-            <label for="lname">Author 2</label>
-            <input
+            ></Input>
+            <Input
               type="text"
               id="lname"
               name="lastname"
               placeholder="Author 2"
-            ></input>
-            <label for="lname">Book</label>
-            <input
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
-              placeholder="Book"
-            ></input>
-            <label for="lname">Year Published</label>
-            <input
+              name="title"
+              placeholder="Book Title"
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
+              name="year"
               placeholder="Year"
-            ></input>
-            <label for="lname">Edition</label>
-            <input
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
+              name="edition"
               placeholder="Edition"
-            ></input>
-            <label for="lname">City published</label>
-            <input
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
-              placeholder="City published"
-            ></input>
-            <label for="lname">Publisher</label>
-            <input
-              type="text"
-              id="lname"
-              name="lastname"
+              name="publisher"
               placeholder="Publisher Name "
-            ></input>
-            <label for="lname">Page Range</label>
-            <input
-              type="text"
-              id="lname"
-              name="lastname"
-              placeholder="Page Range for Citation "
-            ></input>
-            <h1>{this.state.firstname}</h1>
+              onChange={this.handleChange}
+            ></Input>
+            <Divider />
+
+            <Button type="primary" danger block onClick={this.generateCitation}>
+              Generate Citation
+            </Button>
           </form>
+          <Divider />
+          <div>
+            {this.state.visible && (
+              <p>
+                {this.state.lastname},{this.state.firstname.charAt(0)}.(
+                {this.state.year}).{this.state.title}({this.state.edition}st
+                edition.).{this.state.publisher}.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     );
