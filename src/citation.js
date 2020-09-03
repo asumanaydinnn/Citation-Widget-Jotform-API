@@ -2,19 +2,19 @@ import React, { useState, Text } from "react";
 import ReactDOM from "react-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "./style.css";
-import Mla from "./mla.js";
-import Apa from "./apa.js";
-import Chicago from "./ChicagoA";
-import Harvard from "./Harvard";
-import Ieee from "./IEEE";
-import Aaa from "./AAA";
-import Acs from "./ACS";
-import Ama from "./AMA";
-import Apsa from "./APSA";
-import Nlm from "./NLM";
-import Turabian from "./Turabian";
-import Vancouver from "./Vancouver";
-import Oscola from "./OSCOLA";
+import Mla from "./citationtypes/MLA.js";
+import Apa from "./citationtypes/APA.js";
+import Chicago from "./citationtypes/ChicagoA";
+import Harvard from "./citationtypes/Harvard";
+import Ieee from "./citationtypes/IEEE";
+import Aaa from "./citationtypes/AAA";
+import Acs from "./citationtypes/ACS";
+import Ama from "./citationtypes/AMA";
+import Apsa from "./citationtypes/APSA";
+import Nlm from "./citationtypes/NLM";
+import Turabian from "./citationtypes/Turabian";
+import Vancouver from "./citationtypes/Vancouver";
+import Oscola from "./citationtypes/OSCOLA";
 
 class Citation extends React.Component {
   constructor(props) {
@@ -87,19 +87,6 @@ class Citation extends React.Component {
     }
   };
 
-  SubmitFunction = () => {
-    return window.JFCustomWidget.subscribe("submit", function () {
-      var result = {};
-      //this part will be used if your field is required. If your widget is required valid
-      //property will be expected before form can be submitted
-      result.valid = true;
-      //this is your field result. You are expected to send value property as string
-      result.value = "my precious data";
-      window.JFCustomWidget.sendData(result);
-      //most probably you will call sendSubmit method
-      window.JFCustomWidget.sendSubmit(result);
-    });
-  };
   render() {
     const { tabs } = this.state;
     return (
