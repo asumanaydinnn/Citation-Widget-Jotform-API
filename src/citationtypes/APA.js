@@ -7,6 +7,7 @@ import ReactList from "react-list";
 import Book from "../sourceApa/book";
 import OnlineImage from "../sourceApa/OnlineImage";
 import Film from "../sourceApa/film";
+import Journal from "../sourceApa/journal";
 import { Divider } from "antd";
 
 class Apa extends React.Component {
@@ -17,6 +18,7 @@ class Apa extends React.Component {
       resource: [
         " ",
         "Book",
+        "Online Image",
         "Journal",
         "Film",
         "Archive Material",
@@ -60,12 +62,14 @@ class Apa extends React.Component {
       selected: item,
     });
     console.log(item);
-    if (item == "Website") {
+    if (item == "Online Image") {
       this.setState({ website: true });
     } else if (item == "Book") {
       this.setState({ book: true });
     } else if (item == "Film") {
       this.setState({ film: true });
+    } else if (item == "Journal") {
+      this.setState({ journal: true });
     }
   };
   render() {
@@ -87,9 +91,10 @@ class Apa extends React.Component {
           ))}
         </select>
         <Divider />
-        <div>{this.state.onlineImage && <OnlineImage />}</div>
+        <div>{this.state.website && <OnlineImage />}</div>
         <div>{this.state.book && <Book />}</div>
         <div>{this.state.film && <Film />}</div>
+        <div>{this.state.journal && <Journal />}</div>
       </div>
     );
   }

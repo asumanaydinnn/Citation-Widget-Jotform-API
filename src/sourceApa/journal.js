@@ -5,7 +5,7 @@ import { Form, Input, Button, Radio } from "antd";
 import "antd/dist/antd.css";
 import { Divider } from "antd";
 
-class Book extends React.Component {
+class Journal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +13,10 @@ class Book extends React.Component {
       lastname: "",
       title: "",
       year: "",
-      edition: "",
-      city: "",
-      publisher: "",
-      citation: "",
+      journal: "",
+      start: "",
+      finish: "",
+      doi: "",
       visible: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -31,22 +31,26 @@ class Book extends React.Component {
     const author2 = this.state.lastname;
     const titleOfBook = this.state.title;
     const yearOf = this.state.year;
-    const editionOf = this.state.edition;
-    const cityOf = this.state.cityOf;
-    const publisherOf = this.state.publisher;
+    const journal = this.state.journal;
+    const start = this.state.start;
+    const finish = this.state.finish;
+    const doi = this.state.doi;
     const citation =
       author2 +
       "," +
-      author1 +
-      "." +
+      author1.charAt(0) +
+      ".(" +
+      yearOf +
+      ")." +
       titleOfBook +
-      " (" +
-      editionOf +
-      "edition.), " +
-      publisherOf +
-      "." +
-      yearOf;
-    (".");
+      ". " +
+      journal +
+      " ," +
+      start +
+      "-" +
+      finish +
+      "https://doi.org/" +
+      doi;
     console.log(citation);
     this.setState({
       citation: citation,
@@ -89,7 +93,14 @@ class Book extends React.Component {
               type="text"
               id="lname"
               name="title"
-              placeholder="Book Title"
+              placeholder="Article Title"
+              onChange={this.handleChange}
+            ></Input>
+            <Input
+              type="text"
+              id="lname"
+              name="journal"
+              placeholder="Journal Title"
               onChange={this.handleChange}
             ></Input>
             <Input
@@ -102,15 +113,30 @@ class Book extends React.Component {
             <Input
               type="text"
               id="lname"
-              name="edition"
-              placeholder="Edition"
+              name="start"
+              placeholder="Page From"
               onChange={this.handleChange}
             ></Input>
             <Input
               type="text"
               id="lname"
-              name="publisher"
-              placeholder="Publisher Name "
+              name="finish"
+              placeholder="To Page"
+              onChange={this.handleChange}
+            ></Input>
+
+            <Input
+              type="text"
+              id="lname"
+              name="year"
+              placeholder=" Publication Date "
+              onChange={this.handleChange}
+            ></Input>
+            <Input
+              type="text"
+              id="lname"
+              name="doi"
+              placeholder="DOI"
               onChange={this.handleChange}
             ></Input>
             <Divider />
@@ -123,9 +149,10 @@ class Book extends React.Component {
           <div>
             {this.state.visible && (
               <p>
-                {this.state.lastname},{this.state.firstname}.{this.state.title}(
-                {this.state.edition} edition.),{this.state.publisher}.(
-                {this.state.year})
+                {this.state.lastname}, {this.state.firstname.charAt(0)}.(
+                {this.state.year}.{this.state.title}. {this.state.journal},{" "}
+                {this.state.start}-{this.state.finish}. https://doi.org/{" "}
+                {this.state.doi};
               </p>
             )}
           </div>
@@ -135,4 +162,4 @@ class Book extends React.Component {
   }
 }
 
-export default Book;
+export default Journal;

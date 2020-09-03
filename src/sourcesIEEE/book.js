@@ -1,7 +1,9 @@
 import React, { useState, Component, Text } from "react";
 import ReactDOM from "react-dom";
 import "../style.css";
-import Button from "react-bootstrap/Button";
+import { Form, Input, Button, Radio } from "antd";
+import "antd/dist/antd.css";
+import { Divider } from "antd";
 
 class Book extends React.Component {
   constructor(props) {
@@ -15,6 +17,10 @@ class Book extends React.Component {
       city: "",
       publisher: "",
       citation: "",
+      visible: false,
+      start: "",
+      finish: "",
+      chapter: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -31,19 +37,26 @@ class Book extends React.Component {
     const editionOf = this.state.edition;
     const cityOf = this.state.cityOf;
     const publisherOf = this.state.publisher;
+    const chapter = this.state.chapter;
+    const start = this.state.start;
+    const finish = this.state.finish;
     const citation =
-      author2 +
+      author2.charAt(0) +
       "," +
       author1.charAt(0) +
-      ".(" +
-      yearOf +
-      ")." +
+      "." +
+      "Author, " +
+      chapter +
+      "in " +
       titleOfBook +
-      " (" +
+      "." +
       editionOf +
-      "st edition.). " +
+      "edition. " +
+      cityOf +
       publisherOf +
-      ".";
+      "." +
+      yearOf;
+    (".");
     console.log(citation);
     this.setState({
       citation: citation,
@@ -52,6 +65,9 @@ class Book extends React.Component {
       valid: true,
       value: citation,
     };
+    this.setState({
+      visible: true,
+    });
     window.JFCustomWidget.sendData(msg);
   };
 
@@ -59,65 +75,91 @@ class Book extends React.Component {
     //subscribe to form submit event
     return (
       <div>
-        <div className="form-part">
+        <div>
           <form>
-            <label for="fname">Author First Name</label>
-            <input
+            <div>
+              <p>Please fill the informations for the citation</p>
+            </div>
+            <Input
               type="text"
               id="fname"
               name="firstname"
               placeholder="Author 1"
               // value={this.state.firstname}
               onChange={this.handleChange}
-            ></input>
-            <label for="lname">Author Last Name</label>
-            <input
+            ></Input>
+            <Input
               type="text"
               id="lname"
               name="lastname"
               placeholder="Author 2"
               onChange={this.handleChange}
-            ></input>
-            <label for="lname">Book Title</label>
-            <input
+            ></Input>
+            <Input
               type="text"
               id="lname"
               name="title"
               placeholder="Book Title"
               onChange={this.handleChange}
-            ></input>
-            <label for="lname">Year Published</label>
-            <input
+            ></Input>
+            <Input
               type="text"
               id="lname"
               name="year"
               placeholder="Year"
               onChange={this.handleChange}
-            ></input>
-            <label for="lname">Edition</label>
-            <input
+            ></Input>
+            <Input
               type="text"
               id="lname"
               name="edition"
               placeholder="Edition"
               onChange={this.handleChange}
-            ></input>
-            <label for="lname">Publisher</label>
-            <input
+            ></Input>
+            <Input
               type="text"
               id="lname"
               name="publisher"
               placeholder="Publisher Name "
               onChange={this.handleChange}
-            ></input>
-            <Button onClick={this.generateCitation}>Send for Submission</Button>
+            ></Input>
+            <Input
+              type="text"
+              id="lname"
+              name="start"
+              placeholder="Page From "
+              onChange={this.handleChange}
+            ></Input>{" "}
+            <Input
+              type="text"
+              id="lname"
+              name="finish"
+              placeholder="to Page "
+              onChange={this.handleChange}
+            ></Input>
+            <Input
+              type="text"
+              id="lname"
+              name="chapter"
+              placeholder="Chapter Title "
+              onChange={this.handleChange}
+            ></Input>
+            <Divider />
+            <Button type="primary" danger block onClick={this.generateCitation}>
+              Generate Citation
+            </Button>
           </form>
+          <Divider />
           <div>
-            <p>
-              {this.state.lastname},{this.state.firstname.charAt(0)}.(
-              {this.state.year}).{this.state.title}({this.state.edition}st
-              edition.).{this.state.publisher}.
-            </p>
+            {this.state.visible && (
+              <p>
+                {this.state.lastname.charAt(0)},{this.state.firstname.charAt(0)}
+                . Author, "{this.state.chapter}" in {this.state.title} (
+                {this.state.edition} edition.),{this.state.city},
+                {this.state.publisher},(
+                {this.state.year}). pp. {this.state.start}-{this.state.finish}.
+              </p>
+            )}
           </div>
         </div>
       </div>

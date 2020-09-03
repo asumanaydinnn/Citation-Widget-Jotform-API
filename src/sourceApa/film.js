@@ -1,97 +1,154 @@
 import React, { useState, Component, Text } from "react";
 import ReactDOM from "react-dom";
 import "../style.css";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
-import ReactList from "react-list";
+import { Form, Input, Button, Radio } from "antd";
+import "antd/dist/antd.css";
+import { Divider } from "antd";
 
 class Film extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      author2: "",
-      bookName: "",
+      producer: "",
+      producerlast: "",
+      title: "",
+      country: "",
+      studio: "",
       year: "",
-      edition: "",
-      city: "",
-      publisher: "",
-      page: "",
-      citation: "",
+      dfirstname: "",
+      dlastname: "",
+      visible: false,
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
+  generateCitation = () => {
+    const producer = this.state.producer;
+    const producerlast = this.state.producerlast;
+    const title = this.state.title;
+    const country = this.state.country;
+    const studio = this.state.studio;
+    const year = this.state.year;
+    const dfirstname = this.state.dfirstname;
+    const dlastname = this.state.dlastname;
+    const citation =
+      producerlast +
+      "," +
+      producer.charAt(0) +
+      " .(Producer), &" +
+      dlastname +
+      "," +
+      dfirstname.charAt(0) +
+      ". (Director). (" +
+      year +
+      "). " +
+      title +
+      "[Motion picture]" +
+      country +
+      ": " +
+      studio +
+      ".";
+    console.log(citation);
+    this.setState({
+      citation: citation,
+    });
+    const msg = {
+      valid: true,
+      value: citation,
+    };
+    this.setState({
+      visible: true,
+    });
+    window.JFCustomWidget.sendData(msg);
+  };
+
   render() {
+    //subscribe to form submit event
     return (
       <div>
-        <div className="form-part">
+        <div>
           <form>
-            <label for="fname">Author 1</label>
-            <input
+            <div>
+              <p>Please fill the informations for the citation</p>
+            </div>
+            <Input
               type="text"
               id="fname"
-              name="firstname"
-              placeholder="Author 1"
+              name="title"
+              placeholder="Title"
               // value={this.state.firstname}
-              onChange={(this.handleChange, this.changeInput)}
-            ></input>
-            <label for="lname">Author 2</label>
-            <input
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
-              placeholder="Author 2"
-            ></input>
-            <label for="lname">Book</label>
-            <input
+              name="producer"
+              placeholder="Producer First Name"
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
-              placeholder="Book"
-            ></input>
-            <label for="lname">Year Published</label>
-            <input
+              name="producerlast"
+              placeholder="Producer Last Name"
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
+              name="dfirstname"
+              placeholder="Director First Name"
+              onChange={this.handleChange}
+            ></Input>
+            <Input
+              type="text"
+              id="lname"
+              name="dlastname"
+              placeholder="Director First Name"
+              onChange={this.handleChange}
+            ></Input>
+            <Input
+              type="text"
+              id="lname"
+              name="year"
               placeholder="Year"
-            ></input>
-            <label for="lname">Edition</label>
-            <input
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
-              placeholder="Edition"
-            ></input>
-            <label for="lname">City published</label>
-            <input
+              name="country"
+              placeholder="Country "
+              onChange={this.handleChange}
+            ></Input>
+            <Input
               type="text"
               id="lname"
-              name="lastname"
-              placeholder="City published"
-            ></input>
-            <label for="lname">Publisher</label>
-            <input
-              type="text"
-              id="lname"
-              name="lastname"
-              placeholder="Publisher Name "
-            ></input>
-            <label for="lname">Page Range</label>
-            <input
-              type="text"
-              id="lname"
-              name="lastname"
-              placeholder="Page Range for Citation "
-            ></input>
-            <h1>{this.state.firstname}</h1>
+              name="studio"
+              placeholder="Studio "
+              onChange={this.handleChange}
+            ></Input>
+            <Divider />
+            <Button type="primary" danger block onClick={this.generateCitation}>
+              Generate Citation
+            </Button>
           </form>
+          <Divider />
+          <div>
+            {this.state.visible && (
+              <p>
+                {this.state.producerlast},{this.state.producer.charAt(0)}
+                .(Producer), &{this.state.dlastname},{" "}
+                {this.state.dfirstname.charAt(0)}.(Director).( {this.state.year}
+                ). {this.state.title} [Motion picture].
+                {this.state.counry}: {this.state.studio}.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     );
