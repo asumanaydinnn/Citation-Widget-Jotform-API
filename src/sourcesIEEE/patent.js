@@ -5,7 +5,7 @@ import { Form, Input, Button, Radio } from "antd";
 import "antd/dist/antd.css";
 import { Divider } from "antd";
 
-class Journal extends React.Component {
+class Article extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,9 +14,7 @@ class Journal extends React.Component {
       title: "",
       year: "",
       journal: "",
-      start: "",
-      finish: "",
-      doi: "",
+      url: "",
       visible: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -32,25 +30,21 @@ class Journal extends React.Component {
     const titleOfBook = this.state.title;
     const yearOf = this.state.year;
     const journal = this.state.journal;
-    const start = this.state.start;
+    const url = this.state.url;
     const finish = this.state.finish;
-    const doi = this.state.doi;
     const citation =
       author2 +
       "," +
-      author1.charAt(0) +
-      ".(" +
-      yearOf +
-      ")." +
+      author1 +
+      ",' " +
       titleOfBook +
-      ". " +
+      ",'" +
+      "in" +
       journal +
-      " ," +
-      start +
-      "-" +
-      finish +
-      " https://doi.org/" +
-      doi;
+      ", Abbrev. " +
+      yearOf +
+      "[Online]. Available: " +
+      url;
     console.log(citation);
     this.setState({
       citation: citation,
@@ -75,11 +69,10 @@ class Journal extends React.Component {
               <p>Please fill the informations for the citation</p>
             </div>
             <Input
-              required="true"
               type="text"
               id="fname"
               name="firstname"
-              placeholder="Author 1"
+              placeholder="First Name"
               // value={this.state.firstname}
               onChange={this.handleChange}
             ></Input>
@@ -87,54 +80,38 @@ class Journal extends React.Component {
               type="text"
               id="lname"
               name="lastname"
-              placeholder="Author 2"
+              placeholder="Last Name"
               onChange={this.handleChange}
             ></Input>
             <Input
               type="text"
               id="lname"
               name="title"
-              placeholder="Article Title"
+              placeholder="Title Of Article"
               onChange={this.handleChange}
             ></Input>
             <Input
               type="text"
               id="lname"
               name="journal"
-              placeholder="Journal Title"
+              placeholder="Title of Journal"
               onChange={this.handleChange}
             ></Input>
-            <Input
-              type="text"
-              id="lname"
-              name="start"
-              placeholder="Page From"
-              onChange={this.handleChange}
-            ></Input>
-            <Input
-              type="text"
-              id="lname"
-              name="finish"
-              placeholder="To Page"
-              onChange={this.handleChange}
-            ></Input>
-
             <Input
               type="text"
               id="lname"
               name="year"
-              placeholder=" Publication Date "
+              placeholder="Year"
               onChange={this.handleChange}
             ></Input>
             <Input
               type="text"
               id="lname"
-              name="doi"
-              placeholder="DOI"
+              name="url"
+              placeholder="url"
               onChange={this.handleChange}
             ></Input>
             <Divider />
-
             <Button type="primary" danger onClick={this.generateCitation}>
               Generate Citation
             </Button>
@@ -143,10 +120,9 @@ class Journal extends React.Component {
           <div>
             {this.state.visible && (
               <p>
-                {this.state.lastname}, {this.state.firstname.charAt(0)}.(
-                {this.state.year}.{this.state.title}. {this.state.journal},{" "}
-                {this.state.start}-{this.state.finish}. https://doi.org/{" "}
-                {this.state.doi}
+                {this.state.lastname},{this.state.firstname}.,"
+                {this.state.title}" in {this.state.journal}, Abbrev.{" "}
+                {this.state.year} [Online]. Available: {this.state.url}.
               </p>
             )}
           </div>
@@ -156,4 +132,4 @@ class Journal extends React.Component {
   }
 }
 
-export default Journal;
+export default Article;

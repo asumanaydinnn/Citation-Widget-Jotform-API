@@ -5,8 +5,9 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ReactList from "react-list";
 import Book from "../sourcesIEEE/book";
-import OnlineImage from "../sourcesIEEE/OnlineImage";
+import Article from "../sourcesIEEE/patent";
 import Film from "../sourcesIEEE/film";
+import { Divider } from "antd";
 
 class Ieee extends React.Component {
   constructor(props) {
@@ -14,15 +15,16 @@ class Ieee extends React.Component {
     this.state = {
       search: "",
       resource: [
-        "Website",
+        " ",
         "Book",
+        "Online Image",
         "Journal",
         "Film",
         "Archive Material",
         "Artwork",
         "Blog",
         "E-Book Or PDF",
-        "Broadcast",
+        "Article",
         "Chapter of an Edited Book",
         "Conference Preceeding",
         "Edited Book",
@@ -45,42 +47,52 @@ class Ieee extends React.Component {
         "Religious Text",
         "Report",
         "Software",
-        "Website",
       ],
-      website: false,
+      onlineImage: false,
       book: false,
-      journal: false,
+      article: false,
       film: false,
+      selected: " ",
     };
   }
 
-  setStatesAll = (item) => {
-    if (item == "Website") {
+  setStatesAll = ({ target: { value: item } }) => {
+    this.setState({
+      selected: item,
+    });
+    console.log(item);
+    if (item == "Online Image") {
       this.setState({ website: true });
     } else if (item == "Book") {
       this.setState({ book: true });
     } else if (item == "Film") {
       this.setState({ film: true });
+    } else if (item == "Article") {
+      this.setState({ article: true });
     }
   };
   render() {
     const { website } = this.state;
     return (
       <div>
-        <label for="Source">Source</label>
-        <select className="select-source" id="source" name="source">
+        <p>Please Select the source type</p>
+        <select
+          className="select-source"
+          id="source"
+          name="source"
+          value={this.state.selected}
+          onChange={this.setStatesAll}
+        >
           {this.state.resource.map((item) => (
-            <option
-              value={item}
-              key={item}
-              onClick={() => this.setStatesAll(item)}
-            >
+            <option value={item} key={item}>
               {item}
             </option>
           ))}
         </select>
+        <Divider />
         <div>{this.state.book && <Book />}</div>
         <div>{this.state.film && <Film />}</div>
+        <div>{this.state.article && <Article />}</div>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import ReactList from "react-list";
 import Book from "../sourceApa/book";
 import OnlineImage from "../sourceApa/OnlineImage";
 import Film from "../sourceApa/film";
+import { Divider } from "antd";
 
 class Mla extends React.Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class Mla extends React.Component {
     const { website } = this.state;
     return (
       <div>
-        <label for="Source">Source</label>
+        <p>Please Select the source type</p>
         <select className="select-source" id="source" name="source">
           {this.state.resource.map((item) => (
             <option
@@ -79,6 +80,7 @@ class Mla extends React.Component {
             </option>
           ))}
         </select>
+        <Divider />
         <div>{this.state.website && <OnlineImage />}</div>
         <div>{this.state.book && <Book />}</div>
         <div>{this.state.film && <Film />}</div>

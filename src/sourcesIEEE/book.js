@@ -55,8 +55,8 @@ class Book extends React.Component {
       cityOf +
       publisherOf +
       "." +
-      yearOf;
-    (".");
+      yearOf +
+      ".";
     console.log(citation);
     this.setState({
       citation: citation,
